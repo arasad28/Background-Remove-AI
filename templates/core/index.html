@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<nav class="navbar navbar-light bg-primary">
+    <a class="navbar-brand" href="#">
+      <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+      Bootstrap
+    </a>
+  </nav>
+ 
+  <div class="st-container">
+  <div id="main-container">
+    <div id="picture-container"></div>
+    <label for="upload-btn" id="upload-label">
+      <input type="file" id="upload-btn" accept="image/*" title=" "/>
+      <i class="fa-solid fa-circle-plus fa-2xl"></i> <span>Upload Photos</span>   
+    </label>
+    
+  </div>
+ 
+</div>
+    <div id="submit-container">
+      <button class="btn btn-primary" type="button" id="submit-btn">Submit</button> <span><i id="reset-btn" title="Reset"  class="fa-solid fa-rotate-right fa-2xl"></i> <i title="Download" class="fa-sharp fa-solid fa-arrow-down fa-2xl dl"></i> </span>
+    </div>
+
+ 
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Remove background</button>
+ </form>
+ <br>
+ <br>
+ {% if output %}
+ <img src="{{output.img.url}}" alt="">
+ <br>
+ <br>
+{% endif %}
+ {% endblock %}

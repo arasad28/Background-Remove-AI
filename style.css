@@ -1,0 +1,67 @@
+#main-container {
+    position: relative;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 430px;
+    background: repeating-conic-gradient(#f5f2fa 0 25%, transparent 0 50%);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(51, 48, 48, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-size: 28px 28px;
+  }
+
+  
+  #picture-container {
+    width: 640px;
+    height: 430px;
+    background-color: transparent;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    position: relative;
+    background-size: contain;
+  }
+  
+  #upload-label {
+    cursor: pointer;
+    z-index: 1;
+    margin-bottom: 215px;
+  }
+  #upload-label span{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  #upload-btn{
+    display: none;
+  }
+  
+  #submit-container {
+    margin-top: 20px;
+    display: none;
+    position: relative;
+    top: 100px;
+    left: 47%;
+   
+  }
+  
+  #submit-btn {
+    font-size: 10px;
+    padding: 10px 20px;
+  
+  }
+  #submit-container  span{
+    margin-left: 210px;
+    cursor: pointer;
+  }
+  .dl{
+    margin-left: 20px;
+  }

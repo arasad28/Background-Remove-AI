@@ -7,90 +7,88 @@
       <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
       Bootstrap
     </a>
-  </nav>
- 
+</nav>
 
-  <div id="main-container">
+<div id="main-container">
     <div id="picture-container"></div>
 
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrfmiddlewaretoken" value="B3vwBNHPROnaBu5iKUaWmCxusKAsJvj3qaF46mOMcQcbjhHsw1HiEzFEaHVfiL6M">
 
+        <label for="upload-btn" id="upload-label">
+            <input type="file" name="img" accept="image/*" required="" id="upload-btn">
+            <i class="fa-solid fa-circle-plus fa-2xl"></i> <span>Upload Photos</span>
+        </label>
 
+        <div id="submit-container">
+            <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+            <span>
+                <i id="reset-btn" title="Reset" class="fa-solid fa-rotate-right fa-2xl"></i>
+                <i title="Download" class="fa-sharp fa-solid fa-arrow-down fa-2xl dl"></i>
+            </span>
+        </div>
+    </form>
+</div>
 
-      <form method="post" enctype="multipart/form-data">
-    <input type="hidden" name="csrfmiddlewaretoken" value="B3vwBNHPROnaBu5iKUaWmCxusKAsJvj3qaF46mOMcQcbjhHsw1HiEzFEaHVfiL6M">
-
-    <label for="upload-btn" id="upload-label">
-    <input type="file" name="img" accept="image/*" required="" id="upload-btn">
-        <i class="fa-solid fa-circle-plus fa-2xl"></i> <span>Upload Photos</span>
- </label>
-
-  </div>
-
-
-
-    <div id="submit-container">
-      <button type="submit" class="btn btn-primary" type="button" id="submit-btn">Submit</button> <span><i id="reset-btn" title="Reset"  class="fa-solid fa-rotate-right fa-2xl"></i> <i title="Download" class="fa-sharp fa-solid fa-arrow-down fa-2xl dl"></i> </span>
-    </div>
- </form>
 <br>
 <br>
 
-
-<!--div-->
-
- {% if output %}
- <img src="{{output.img.url}}" alt="">
- <br>
- <br>
+{% if output %}
+    <img src="{{output.img.url}}" alt="">
+    <br>
+    <br>
 {% endif %}
+
 <script>
     const uploadBtn = document.getElementById('upload-btn');
-const pictureContainer = document.getElementById('picture-container');
-const uploadLabel = document.getElementById('upload-label');
-const submitContainer = document.getElementById('submit-container');
-const submitBtn = document.getElementById('submit-btn');
-const resetBtn = document.getElementById('reset-btn');
+    const pictureContainer = document.getElementById('picture-container');
+    const uploadLabel = document.getElementById('upload-label');
+    const submitContainer = document.getElementById('submit-container');
+    const submitBtn = document.getElementById('submit-btn');
+    const resetBtn = document.getElementById('reset-btn');
 
-uploadBtn.addEventListener('change', function(event) {
-  const file = event.target.files[0];
-  const reader = new FileReader();
+    uploadBtn.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
 
-  reader.onloadstart = function() {
-    // Show loading effect
-    pictureContainer.style.backgroundImage = "none";
-    pictureContainer.innerHTML = "Uploading...";
-  };
+        reader.onloadstart = function() {
+            // Show loading effect
+            pictureContainer.style.backgroundImage = "none";
+            pictureContainer.innerHTML = "Uploading...";
+        };
 
-  reader.onload = function(e) {
-    pictureContainer.innerHTML = '';
-    pictureContainer.style.backgroundImage = `url(${e.target.result})`;
-    uploadLabel.style.display = 'none';
-    pictureContainer.style.opacity = '1';
-    submitContainer.style.display = 'block';
-  };
+        reader.onload = function(e) {
+            pictureContainer.innerHTML = '';
+            pictureContainer.style.backgroundImage = `url(${e.target.result})`;
+            uploadLabel.style.display = 'none';
+            pictureContainer.style.opacity = '1';
+            submitContainer.style.display = 'block';
+        };
 
-  reader.readAsDataURL(file);
-});
+        reader.readAsDataURL(file);
+    });
 
-resetBtn.addEventListener('click', resetPage);
+    resetBtn.addEventListener('click', resetPage);
 
-function resetPage() {
-  uploadBtn.value = ''; // Reset the file input value
-  pictureContainer.innerHTML = ''; // Clear the image container
-  pictureContainer.style.opacity = '0';
-  uploadLabel.style.display = 'flex';
-  submitContainer.style.display = 'none';
-}
-window.onbeforeunload = function() {
-  // Clear the file input value and image container on browser reload
-  uploadBtn.value = '';
-  pictureContainer.innerHTML = '';
-};
-submitBtn.addEventListener('click', changeBG)
-function changeBG() {
-<!--pictureContainer.style.backgroundImage = "url('{{output.img.url}}')";-->
-}
+    function resetPage() {
+        uploadBtn.value = ''; // Reset the file input value
+        pictureContainer.innerHTML = ''; // Clear the image container
+        pictureContainer.style.opacity = '0';
+        uploadLabel.style.display = 'flex';
+        submitContainer.style.display = 'none';
+    }
 
+    window.onbeforeunload = function() {
+        // Clear the file input value and image container on browser reload
+        uploadBtn.value = '';
+        pictureContainer.innerHTML = '';
+    };
 
+    submitBtn.addEventListener('click', changeBG);
+
+    function changeBG() {
+        // pictureContainer.style.backgroundImage = "url('{{output.img.url}}')";
+    }
 </script>
- {% endblock %}
+
+{% endblock %}

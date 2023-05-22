@@ -45,3 +45,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Remove background</button>
+ </form>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrfmiddlewaretoken" value="B3vwBNHPROnaBu5iKUaWmCxusKAsJvj3qaF46mOMcQcbjhHsw1HiEzFEaHVfiL6M">
+    <p>
+    <label for="id_img">Img:</label>
+    <input type="file" name="img" accept="image/*" required="" id="id_img">
+
+  </p>
+    <button type="submit">Remove background</button>
+ </form>

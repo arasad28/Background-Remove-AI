@@ -15,11 +15,24 @@
     background-size: 28px 28px;
   }
 
-  
+  .outimg{
+    width: 640px;
+    height: 430px;
+    background-color: transparent;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    position: relative;
+    background-size: contain;
+  }
   #picture-container {
     width: 640px;
     height: 430px;
-    background-color: #ffffff;
+    background-color: transparent;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

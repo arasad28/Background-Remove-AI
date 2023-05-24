@@ -7,7 +7,9 @@ from .models import ImageUp
 from io import BytesIO
 from django.core.files import File
 from pathlib import Path
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def index(request):
     form = ImageUploadForm()
     context = {'form':form}

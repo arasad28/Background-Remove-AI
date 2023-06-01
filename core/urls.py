@@ -5,4 +5,5 @@ app_name = 'core'
 
 urlpatterns = [
     path('',views.index,name='home' ),
+    path('rempic/',views.picUpdate,name='ajaxup'),
 ]

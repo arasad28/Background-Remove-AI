@@ -11,22 +11,23 @@
 </nav>
 
 <div id="main-container">
+    <div id ="bg-img"><input type="file" name="bgimg" accept="image/*" required="" id="bgimg"></div>
     <div id="picture-container"></div>
-    <div id="picture-container-output" {% if output %} style="display:block;"{% else %} style = "display:none"{% endif %}><img src = "{{output.img.url}}"/></div>
+    <div id="picture-container-output"><img id ="outimg" src=""/></div>
     <form method="post" id="form-id" enctype="multipart/form-data">
        
-
-        <label for="upload-btn" id="upload-label" {% if output %} style="display:none;"{% else %} style = "display:block"{% endif %}>
+        
+        <label for="upload-btn" id="upload-label">
             <input type="file" name="img" accept="image/*" required="" id="upload-btn">
             <i class="fa-solid fa-circle-plus fa-2xl"></i> <span>Upload Photos</span>
         </label>
 
         <div id="submit-container">
-            <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+            <button type="submit"  class="btn btn-primary submit" id="submit-btn">Submit</button>
             
         </div>
         <div id="rdbtn">
-            <i {% if output %} style="display:block;"{% else %} style = "display:none"{% endif %} id="reset-btn" title="Reset" class="fa-solid fa-rotate-right fa-2xl"></i><a href="{{output.img.url}}" download><i id="dl" {% if output %} style="display:block;"{% else %} style = "display:none";{% endif %} title="Download" class="fa-sharp fa-solid fa-arrow-down fa-2xl dl"></i></a>
+            <i id="reset-btn" title="Reset" class="fa-solid fa-rotate-right fa-2xl"></i><a id="dlimg" href="" download><i id="dl"  title="Download" class="fa-sharp fa-solid fa-arrow-down fa-2xl dl"></i></a>
         </div>
 
     </form>
@@ -49,7 +50,102 @@
     const picOutput = document.getElementById('picture-container-output'); 
     const formId = document.getElementById('form-id');
     const dlBtn = document.getElementById('dl');
+    const outImg = document.getElementById('outimg');
 
+$('body').on('submit','#form-id',function(e){
+   e.preventDefault()
+   var formData = new FormData(this);
+
+   console.log(formData);
+   $.ajax({
+         url:'{% url "core:ajaxup" %}',
+         type: 'POST',
+         data: formData,
+         success: function (response) {
+            
+            var piout = $('#picture-container-output')
+            
+            // var imgsrc = "<img id ='outimg' src = "+response.im+"/>";
+            // piout.append(imgsrc);
+            $('#outimg').attr('src',response.im);
+            
+            $('#dlimg').attr("href",response.im);
+            piout.css('display','block');
+            $('#outimg').css('display','block');
+            $('#dl').css('display','block');
+            if (response.im){
+                $('#bg-img').css('display','block');
+            }
+            // $('#submit-btn').css('display','none');
+         },
+         error: function (response) {
+         },
+        cache: false,
+        contentType: false,
+        processData: false
+   });
+   
+});
+$('#bg-img').change(function(event) {
+  var file = event.target.files[0];
+
+  // Check if a file is selected
+  if (file) {
+    console.log('yes');
+    var url = URL.createObjectURL(file);
+    $('#picture-container-output').attr('style', 'background-image:url(' + url + ')');
+    };
+});
+
+// $('#reset-btn').click(function(){
+//     $('#upload-btn').val('');
+//     $('#upload-btn').css('display','none');
+//     $('#picture-container').empty();
+//     $('#picture-container').css({'display':'none','opacity':'0'});
+//     $('#upload-label').css('display','block');
+//     $('#picture-container').css('display','none');
+//     $('#picture-container-output').css('display','none');
+//     $('#reset-btn').css('display','none');
+//     $('#submit-container').css('display','none');
+//     $('#dl').css('display','none');
+//     console.log('yes')
+    
+//    });
+
+
+    //     var data = new FormData();
+    //     data.append("file",$("input[id^='upload-btn']")[0].files[0]);
+    //     $.ajax({
+    //         method:'POST',
+    //         url:'{% url "core:ajaxup" %}',
+    //         processDATA:false,
+    //         contentType:false,
+    //         mimeType:"multipart/form-data",
+    //         data:data,
+    //         success:function(response){
+    //             console.log(response.im)
+    //         }
+
+    //     })
+    // }
+
+    // btn.on('click',function(e){
+    //     e.preventDefault();
+    //     var img = $('#upload-btn').val();
+    //     console.log(img)
+
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{% url "core:ajaxup" %}',
+    //         data: {img:img },
+    //         dataType: 'json',
+    //         success: function(data){
+    //             console.log(data.im)
+                
+    //         }            
+    //       });
+    // });
+   
     uploadBtn.addEventListener('change', function(event) {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -76,19 +172,27 @@
 
     function resetPage() {
         uploadBtn.value = ''; // Reset the file input value
+        // uploadBtn.style.display='block';
         pictureContainer.innerHTML = ''; // Clear the image container
         pictureContainer.style.opacity = '0';
         uploadLabel.style.display = 'block';
         submitContainer.style.display = 'none';
         picOutput.style.display='none';
+        picOutput.style.innerHTML='';
         resetBtn.style.display = 'none';
         dlBtn.style.display = 'none';
+        pictureContainer.style.backgroundImage='';
+        pictureContainer.style.display = 'block';
+        outImg.src="";
+        
+        
     }
 
     window.onbeforeunload = function() {
         // Clear the file input value and image container on browser reload
         uploadBtn.value = '';
         pictureContainer.innerHTML = '';
+       
     };
 
 

@@ -26,7 +26,6 @@ def picUpdate(request):
         print(fname)
         print(ext)
         name = f'{fname}_output.png'
-        # op = f'{fname}_output.{ext}'
         input_img = Image.open(input_path)
         output_img = remove(input_img)
         output_img.convert('RGB')
@@ -36,14 +35,7 @@ def picUpdate(request):
         buffer.seek(0)
         im = ImageUp()
         im.img.save(name, ContentFile(buffer.read()),save=True)
-        # output = output_img.save(output_path)
-        # im = ImageUp()
-        # path = Path(output_path)
-        # with path.open(mode="rb") as f:
-        #     im.img = File(f,name = op)
-        #     im.save()
         ot = im.img.url
-        # context.update({'output':im})
     return JsonResponse({'im':ot })
 
 

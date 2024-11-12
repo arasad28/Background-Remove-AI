@@ -58,54 +58,6 @@ $('#bg-img').change(function(event) {
     };
 });
 
-// $('#reset-btn').click(function(){
-//     $('#upload-btn').val('');
-//     $('#upload-btn').css('display','none');
-//     $('#picture-container').empty();
-//     $('#picture-container').css({'display':'none','opacity':'0'});
-//     $('#upload-label').css('display','block');
-//     $('#picture-container').css('display','none');
-//     $('#picture-container-output').css('display','none');
-//     $('#reset-btn').css('display','none');
-//     $('#submit-container').css('display','none');
-//     $('#dl').css('display','none');
-//     console.log('yes')
-    
-//    });
-
-
-    //     var data = new FormData();
-    //     data.append("file",$("input[id^='upload-btn']")[0].files[0]);
-    //     $.ajax({
-    //         method:'POST',
-    //         url:'{% url "core:ajaxup" %}',
-    //         processDATA:false,
-    //         contentType:false,
-    //         mimeType:"multipart/form-data",
-    //         data:data,
-    //         success:function(response){
-    //             console.log(response.im)
-    //         }
-
-    //     })
-    // }
-
-    // btn.on('click',function(e){
-    //     e.preventDefault();
-    //     var img = $('#upload-btn').val();
-    //     console.log(img)
-
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: '{% url "core:ajaxup" %}',
-    //         data: {img:img },
-    //         dataType: 'json',
-    //         success: function(data){
-    //             console.log(data.im)
-                
-    //         }            
-    //       });
-    // });
    
     uploadBtn.addEventListener('change', function(event) {
         const file = event.target.files[0];
